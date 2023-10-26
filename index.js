@@ -1,7 +1,7 @@
 import { connect } from 'mongoose'
 import { config } from 'dotenv'
 
-import app from './Server/index.js'
+import app from './server/index.js'
 
 config()
 
