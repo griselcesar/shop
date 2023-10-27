@@ -17,3 +17,22 @@ export const createClienteValidator = async (req, res, next) => {
   req.newClient = { rif, names, surnames, address, email, phone }
   next()
 }
+
+export const updateClientValidator = async (req, res, next) => {
+  let { id } = req.params
+  let { rif, names, surnames, address, email, phone } = req.body
+  if (!rif) return res.status(400).json({ message: 'ingrese un RIF por favor' })
+  if (!names) return res.status(400).json({ message: 'ingrese un nombre por favor' })
+  if (!surnames) return res.status(400).json({ message: 'ingrese un apellido por favor' })
+  if (!address) return res.status(400).json({ message: 'ingrese una dirección por favor' })
+  if (!email) return res.status(400).json({ message: 'ingrese un correo por favor' })
+  if (!phone) return res.status(400).json({ message: 'ingrese un teléfono por favor' })
+
+  if (rif) {
+    let client = await getClientByRIF(rif)
+    if (client._id != id) return res.status(400).json({ message: 'RIF registrado en otro cliente' })
+  }
+
+  req.newClientData = { rif, names, surnames, address, email, phone }
+  next()
+}

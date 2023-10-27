@@ -3,18 +3,20 @@ import {
   getAllClientsController,
   createOneClientController,
   getOneClientByIDController,
-  deleteOneClientByIDController
+  deleteOneClientByIDController,
+  updateOneClientByIDController
 } from '../controllers/clients.controller.js'
 
-import {createClienteValidator} from '../validators/clients.validators.js'
+import { createClienteValidator, updateClientValidator } from '../validators/clients.validators.js'
 
 const clientsRouter = Router()
 
 clientsRouter.route('/')
   .get(getAllClientsController)
-  .post(createClienteValidator,createOneClientController)
+  .post(createClienteValidator, createOneClientController)
 clientsRouter.route('/:id')
   .get(getOneClientByIDController)
+  .put(updateClientValidator, updateOneClientByIDController)
   .delete(deleteOneClientByIDController)
 
 export default clientsRouter

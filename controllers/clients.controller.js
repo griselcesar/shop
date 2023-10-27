@@ -2,7 +2,8 @@ import {
   getAllClients,
   createOneClient,
   getOneClientByID,
-  deleteOneClientByID
+  deleteOneClientByID,
+  updateOneClientByID
 } from '../services/clients.services.js'
 
 export const getAllClientsController = async (req, res) => {
@@ -59,4 +60,22 @@ export const deleteOneClientByIDController = async (req, res) => {
   let client = await deleteOneClientByID(id)
   if (!client) return res.status(404).json({ message: 'cliente no encontrado' })
   return res.status(200).json({ message: 'cliente eliminado' })
+}
+
+export const updateOneClientByIDController = async (req, res) => {
+  let { id } = req.params
+  let { newClientData } = req
+  let client = await updateOneClientByID(id, newClientData)
+  if (!client) return res.status(404).json({ message: 'cliente no encontrado' })
+  return res.status(200).json({
+    message: 'cliente actualizado correctamente',
+    client: {
+      id: client._id,
+      client: `${client.surnames}, ${client.names}`,
+      rif: client.rif,
+      address: client.address,
+      phone: client.phone,
+      email: client.email
+    }
+  })
 }
