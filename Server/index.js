@@ -8,5 +8,8 @@ app.use(express.json())
 app.use(cors('*'))
 app.use(morgan('dev'))
 
+import clientsRoutes from '../routes/clients.routes.js'
+
+app.use('/clients', clientsRoutes)
 
 export default app
